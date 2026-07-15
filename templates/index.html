@@ -36,14 +36,13 @@
         .logo-area h1 { margin: 0; font-size: 22px; letter-spacing: 2px; color: #00aaff; text-shadow: 0 0 10px #00aaff; }
         .logo-area span { font-size: 10px; color: #888; text-transform: uppercase; }
         
-        /* التعديل: الكلمة بقت ثابتة تماماً بدون أي حركة */
         .system-name { 
             font-weight: 900; 
             color: #00aaff; 
             font-size: 34px; 
             letter-spacing: 8px; 
-            text-shadow: 0 0 8px #00aaff; /* إضاءة ثابتة */
-            transition: all 0.5s ease; /* عشان اللون يتغير بنعومة */
+            text-shadow: 0 0 8px #00aaff;
+            transition: all 0.5s ease;
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
@@ -135,37 +134,27 @@
             white-space: pre-wrap;
         }
 
-        /* 
-           =========================================
-           إخفاء شريط التمرير (Scrollbar)
-           =========================================
-        */
         .terminal::-webkit-scrollbar, .intel-box::-webkit-scrollbar {
-            display: none; /* إخفاء في متصفحات Chrome و Safari و Edge */
+            display: none; 
         }
         .terminal, .intel-box {
-            -ms-overflow-style: none;  /* إخفاء في متصفح IE و Edge القديم */
-            scrollbar-width: none;  /* إخفاء في متصفح Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
-        /* 
-           =========================================
-           Critical Threat Visual States (حالة الخطر)
-           =========================================
-        */
+        /* Critical Threat Visual States */
+        
         body.threat-active { background-color: #100000; }
         body.threat-active header { border-color: #400; }
         body.threat-active h1 { color: #ff0000; text-shadow: 0 0 20px #ff0000; }
         body.threat-active .stat-item { border-left-color: #ff0000; }
         body.threat-active .panel { border-color: #400; }
 
-        /* تعديل: تلوين اسم الشركة A.E.G.I.S بالأحمر المضيء وقت الخطر */
         body.threat-active .system-name {
             color: #ff0000;
             text-shadow: 0 0 15px #ff0000;
         }
 
-        /* تعديل: تلوين الرادار والدائرة اللي بتلف بالأحمر وقت الخطر */
         body.threat-active .radar {
             border-color: #ff0000;
             box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
@@ -286,7 +275,6 @@
 </div>
 
 <script>
-    // الوقت بيشتغل فوراً وميختفيش وقت الريلود
     function updateTime() {
         document.getElementById('clock').innerText = new Date().toLocaleTimeString(); 
     }
