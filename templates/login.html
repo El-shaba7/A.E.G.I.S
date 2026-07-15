@@ -6,7 +6,7 @@
     <title>A.E.G.I.S - Secure Login</title>
     <style>
         body {
-            background-color: #0b101a; /* خلفية كحلية غامقة جداً */
+            background-color: #0b101a; 
             color: #c9d1d9;
             font-family: 'Courier New', Courier, monospace;
             display: flex;
@@ -17,7 +17,6 @@
             overflow: hidden;
         }
         
-        /* تأثير خطوط في الخلفية ليعطي طابع سيبراني */
         body::before {
             content: "";
             position: absolute;
@@ -39,7 +38,6 @@
             position: relative;
         }
 
-        /* خط أزرق منور فوق المربع */
         .login-container::before {
             content: '';
             position: absolute;
@@ -158,7 +156,6 @@
 
         <button type="submit" class="login-btn">AUTHENTICATE</button>
 
-        <!-- الجزء ده بيظهر بس لو اليوزر كتب باسوورد غلط -->
         {% if error %}
         <div class="error-message">⚠️ {{ error }}</div>
         {% endif %}
