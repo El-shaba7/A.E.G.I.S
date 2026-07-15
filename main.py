@@ -58,7 +58,6 @@ def send_telegram_alert(ip):
     except Exception as e:
         pass
 
-# الدالة الخاصة بتقرير الاستخبارات على التليجرام
 def send_telegram_intel_report(ip, nmap_data):
     message = (
         f"📊 *TARGET INTELLIGENCE REPORT* 📊\n\n"
@@ -104,7 +103,6 @@ def active_defense_sequence(ip):
     STATUS["last_ip"] = ip
     STATUS["nmap_data"] = f"Profiling target {ip}...\n"
     
-    # --- المرحلة 1: سحب الماك أدريس أولاً ---
     try:
         arp_result = subprocess.check_output(['arp', '-n', ip]).decode('utf-8')
         mac_search = re.search(r"([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})", arp_result)
@@ -129,13 +127,11 @@ def active_defense_sequence(ip):
     except:
         pass
 
-    # --- المرحلة 2: الإنذار الفوري ---
     if ser:
         ser.write(b'R') 
     STATUS["blocked_count"] += 1
     threading.Thread(target=send_telegram_alert, args=(ip,)).start()
 
-    # --- المرحلة 3: سحب البورتات والـ OS مع تنظيف كامل للبيانات ---
     try:
         nmap_process = subprocess.run(
             ['sudo', 'nmap', '-O', '--osscan-guess', '-Pn', '-F', ip], 
@@ -172,13 +168,11 @@ def active_defense_sequence(ip):
                 clean_data += "\n\n🖥️ *DETECTED OS:*\n`Unknown System (Stealthy)`"
         
         STATUS["nmap_data"] = clean_data
-        # إرسال رسالة التليجرام التانية (التقرير الاستخباراتي) فوراً بعد تنظيف البيانات
         threading.Thread(target=send_telegram_intel_report, args=(ip, clean_data)).start()
 
     except Exception as e:
         STATUS["nmap_data"] = "Target profiling completed with limited OS data."
 
-    # --- المرحلة 4: الحظر الفعلي (Firewall Rule) ---
     try:
         subprocess.run(['sudo', 'firewall-cmd', '--add-rich-rule', f'rule family="ipv4" source address="{ip}" reject'], check=True)
         subprocess.run(['sudo', 'firewall-cmd', '--runtime-to-permanent'], check=True)
